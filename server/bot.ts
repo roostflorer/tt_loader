@@ -468,24 +468,39 @@ export async function startBot() {
     let msg = "";
     if (lang === "ru") {
       msg = `📖 *СПРАВОЧНИК И ИСТОРИЯ ОБНОВЛЕНИЙ:*\n\n`;
+      msg += `📍 **Версия 2.2.0 (Текущая)**\n`;
+      msg += `● Улучшено именование аудиофайлов (теперь используются названия из видео).\n`;
+      msg += `● Оптимизирован механизм отправки файлов (использование InputFile).\n`;
+      msg += `● Исправлено отображение имен пользователей в админ-панели.\n`;
+      msg += `● Оптимизировано хранение временных данных в памяти.\n\n`;
       msg += `📍 **Версия 2.1.0**\n`;
       msg += `● Полностью обновлен дизайн текстовых сообщений.\n`;
-      msg += `● Добавлена расширенная поддержка польского языка.\n`;
+      msg += `● Добавлена поддержка польского языка.\n`;
       msg += `● Исправлена работа с мобильными ссылками (vm.tiktok).\n`;
       msg += `● Улучшена система выдачи бонусов за подписку.\n`;
       msg += `● Оптимизирована скорость загрузки тяжелых видео.\n\n`;
       msg += `💎 *Будущее:* Скоро добавим поддержку Reels и Shorts!`;
     } else if (lang === "pl") {
       msg = `📖 *PRZEWODNIK I HISTORIA ZMIAN:*\n\n`;
+      msg += `📍 **Wersja 2.2.0 (Aktualna)**\n`;
+      msg += `● Ulepszone nazewnictwo plików audio.\n`;
+      msg += `● Zoptymalizowany mechanizm wysyłania plików.\n`;
+      msg += `● Poprawione wyświetlanie nazw użytkowników w panelu.\n`;
+      msg += `● Zoptymalizowane przechowywanie danych tymczasowych.\n\n`;
       msg += `📍 **Wersja 2.1.0**\n`;
       msg += `● Całkowicie odświeżono wygląd wiadomości tekstowych.\n`;
-      msg += `● Dodano pełне wsparcie dla języka polskiego.\n`;
+      msg += `● Dodano pełne wsparcie dla języka polskiego.\n`;
       msg += `● Naprawiono obsługę linków mobilnych (vm.tiktok).\n`;
-      msg += `● Ulepszono system приznawania bonusów za subskrypcję.\n`;
+      msg += `● Ulepszono system przyznawania bonusów za subskrypcję.\n`;
       msg += `● Zoptymalizowano prędkość pobierania dużych plików.\n\n`;
       msg += `💎 *Przyszłość:* Wkrótce dodamy obsługę Reels i Shorts!`;
     } else {
       msg = `📖 *HANDBOOK & CHANGE LOG:*\n\n`;
+      msg += `📍 **Version 2.2.0 (Current)**\n`;
+      msg += `● Improved audio file naming (titles from video).\n`;
+      msg += `● Optimized file sending mechanism (InputFile).\n`;
+      msg += `● Fixed user name display in admin dashboard.\n`;
+      msg += `● Optimized memory storage for temporary data.\n\n`;
       msg += `📍 **Version 2.1.0**\n`;
       msg += `● Completely redesigned text message layouts.\n`;
       msg += `● Added full support for the Polish language.\n`;
@@ -570,7 +585,6 @@ export async function startBot() {
       const lang = ctx.session.language || "ru";
       await ctx.answerCallbackQuery(lang === "ru" ? "⏳ Подготовка аудио..." : lang === "pl" ? "⏳ Przygotowywanie dźwięku..." : "⏳ Preparing audio...");
 
-      const id = data.replace("dl_audio_", "");
       const entry = audioStore.get(id);
       if (!entry) {
         await ctx.reply(lang === "ru" ? "❌ Ссылка устарела. Попробуйте заново." : lang === "pl" ? "❌ Link wygasł. Spróbuj ponownie." : "❌ Link expired. Try again.");
@@ -578,6 +592,7 @@ export async function startBot() {
       }
 
       const videoUrl = entry.videoUrl;
+      const safeTitle = entry.title || id;
       const tmpDir = path.join(process.cwd(), "tmp");
       try {
         fs.mkdirSync(tmpDir, { recursive: true });
@@ -614,7 +629,7 @@ export async function startBot() {
         
         if (!chatId) throw new Error("Could not find chat ID");
 
-        await ctx.api.sendAudio(chatId, new InputFile(audioPath), { caption });
+        await ctx.api.sendAudio(chatId, new InputFile(audioPath, `${safeTitle}.mp3`), { caption });
       } catch (err) {
         console.error("Audio extraction error:", err);
         await ctx.reply(lang === "ru" ? "❌ Ошибка при создании аудио. Попробуйте позже." : lang === "pl" ? "❌ Błąd podczas tworzenia dźwięku. Spróbuj później." : "❌ Failed to create audio. Try again later.");
@@ -751,9 +766,14 @@ export async function startBot() {
                         lang === "pl" ? `✅ *Pobrano przez @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Okres próbny"}` : 
                         `✅ *Downloaded via @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Trial"}`;
 
-        // store a short id for audio extraction (so we don't place long URLs into callback data)
         const audioId = crypto.randomBytes(6).toString("hex");
-        audioStore.set(audioId, { videoUrl, createdAt: Date.now() });
+        // sanitize title for filename
+        const safeTitle = (title || "audio")
+          .replace(/[^\w\sа-яА-Я]/gi, "")
+          .substring(0, 50)
+          .trim() || "audio";
+        
+        audioStore.set(audioId, { videoUrl, createdAt: Date.now(), title: safeTitle });
 
         await ctx.replyWithVideo(videoUrl, {
           caption: caption.substring(0, 1024), // Telegram caption limit
