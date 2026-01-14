@@ -1,0 +1,54 @@
+
+> rest-express@1.0.0 dev
+> cross-env NODE_ENV=development tsx server/index.ts
+
+Failed to init bot: GrammyError: Call to 'getMe' failed! (404: Not Found)
+    at toGrammyError (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\error.js:47:12)
+    at ApiClient.callApi (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\client.js:97:48)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async withRetries (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\bot.js:522:41)
+    at async Bot.init (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\bot.js:168:22)
+    at async startBot (C:\Users\mmart\Desktop\ttloader\server\bot.ts:639:5)
+    at async registerRoutes (C:\Users\mmart\Desktop\ttloader\server\routes.ts:17:11)
+    at async <anonymous> (C:\Users\mmart\Desktop\ttloader\server\index.ts:90:3) {
+  method: 'getMe',
+  payload: {},
+  ok: false,
+  error_code: 404,
+  description: 'Not Found',
+  parameters: {}
+}
+Bot initialized in webhook mode; not starting polling.
+Failed to set webhook: GrammyError: Call to 'setWebhook' failed! (404: Not Found)
+    at toGrammyError (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\error.js:47:12)
+    at ApiClient.callApi (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\client.js:97:48)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async registerRoutes (C:\Users\mmart\Desktop\ttloader\server\routes.ts:39:9)
+    at async <anonymous> (C:\Users\mmart\Desktop\ttloader\server\index.ts:90:3) {
+  method: 'setWebhook',
+  payload: {
+    url: 'https://unpendent-poriform-kimora.ngrok-free.dev/telegram-webhook',
+    drop_pending_updates: true
+  },
+  ok: false,
+  error_code: 404,
+  description: 'Not Found',
+  parameters: {}
+}
+9:15:20 AM [express] serving on port 5000
+Failed to init bot: GrammyError: Call to 'getMe' failed! (404: Not Found)
+    at toGrammyError (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\error.js:47:12)
+    at ApiClient.callApi (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\core\client.js:97:48)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async withRetries (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\bot.js:522:41)
+    at async Bot.init (C:\Users\mmart\Desktop\ttloader\node_modules\grammy\out\bot.js:168:22)
+    at async startBot (C:\Users\mmart\Desktop\ttloader\server\bot.ts:639:5)
+    at async Server.<anonymous> (C:\Users\mmart\Desktop\ttloader\server\index.ts:126:9) {
+  method: 'getMe',
+  payload: {},
+  ok: false,
+  error_code: 404,
+  description: 'Not Found',
+  parameters: {}
+}
+Bot initialized in webhook mode; not starting polling.

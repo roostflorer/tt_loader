@@ -1,0 +1,19 @@
+{
+  "update_id": 999999,
+  "callback_query": {
+    "id": "cb1",
+    "from": {
+      "id": 111111111,
+      "is_bot": false,
+      "first_name": "Tester"
+    },
+    "message": {
+      "message_id": 1,
+      "chat": {
+        "id": 111111111,
+        "type": "private"
+      }
+    },
+    "data": "dl_audio_testid123"
+  }
+}

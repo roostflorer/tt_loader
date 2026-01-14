@@ -1,0 +1,32 @@
+t=2026-01-11T09:15:12+0100 lvl=info msg="no configuration paths supplied"
+t=2026-01-11T09:15:12+0100 lvl=info msg="using configuration at default config path" path=C:\\Users\\mmart\\AppData\\Local/ngrok/ngrok.yml
+t=2026-01-11T09:15:12+0100 lvl=info msg="open config file" path=C:\\Users\\mmart\\AppData\\Local\\ngrok\\ngrok.yml err=nil
+t=2026-01-11T09:15:12+0100 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040 allow_hosts=[]
+t=2026-01-11T09:15:12+0100 lvl=info msg="client session established" obj=tunnels.session
+t=2026-01-11T09:15:12+0100 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2026-01-11T09:15:12+0100 lvl=info msg=start pg=/api/tunnels id=12d6345ea3c94ded
+t=2026-01-11T09:15:12+0100 lvl=info msg=end pg=/api/tunnels id=12d6345ea3c94ded status=200 dur=520.9µs
+t=2026-01-11T09:15:12+0100 lvl=info msg=start pg=/api/tunnels id=288d6d260580a673
+t=2026-01-11T09:15:12+0100 lvl=info msg=end pg=/api/tunnels id=288d6d260580a673 status=200 dur=0s
+t=2026-01-11T09:15:13+0100 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://127.0.0.1:5000 url=https://unpendent-poriform-kimora.ngrok-free.dev
+t=2026-01-11T09:15:13+0100 lvl=info msg="update available" obj=updater
+t=2026-01-11T09:15:14+0100 lvl=info msg=start pg=/api/tunnels id=6e0c63ea10fa3c92
+t=2026-01-11T09:15:14+0100 lvl=info msg=end pg=/api/tunnels id=6e0c63ea10fa3c92 status=200 dur=0s
+t=2026-01-11T09:15:14+0100 lvl=info msg=start pg=/api/tunnels id=3fbbaf27a571b1a9
+t=2026-01-11T09:15:14+0100 lvl=info msg=end pg=/api/tunnels id=3fbbaf27a571b1a9 status=200 dur=0s
+t=2026-01-11T09:15:33+0100 lvl=info msg=start pg=/api/tunnels id=a486956f04895618
+t=2026-01-11T09:15:33+0100 lvl=info msg=end pg=/api/tunnels id=a486956f04895618 status=200 dur=0s
+t=2026-01-11T09:17:45+0100 lvl=info msg=start pg=/api/tunnels id=5871e5ae6e262099
+t=2026-01-11T09:17:45+0100 lvl=info msg=end pg=/api/tunnels id=5871e5ae6e262099 status=200 dur=0s
+t=2026-01-11T09:19:39+0100 lvl=info msg=start pg=/api/tunnels id=9c46171f7542f312
+t=2026-01-11T09:19:39+0100 lvl=info msg=end pg=/api/tunnels id=9c46171f7542f312 status=200 dur=0s
+t=2026-01-11T09:20:20+0100 lvl=warn msg="failed to open private leg" id=ff18487f0fa0 privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:20:22+0100 lvl=warn msg="failed to open private leg" id=2b1b88ce04f0 privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:20:24+0100 lvl=warn msg="failed to open private leg" id=ca773e3855e5 privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:20:28+0100 lvl=warn msg="failed to open private leg" id=9aa99fef88c1 privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:20:36+0100 lvl=warn msg="failed to open private leg" id=21fd89d63fc7 privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:20:52+0100 lvl=warn msg="failed to open private leg" id=3d429e01dc7e privaddr=127.0.0.1:5000 err="dial tcp 127.0.0.1:5000: connectex: No connection could be made because the target machine actively refused it."
+t=2026-01-11T09:21:23+0100 lvl=info msg="received stop request" obj=app stopReq="{err:<nil> restart:false}"
+t=2026-01-11T09:21:23+0100 lvl=info msg="session closing" obj=tunnels.session err=nil
+t=2026-01-11T09:21:23+0100 lvl=info msg="accept failed" obj=tunnels.session obj=csess id=432855eface5 err="reconnecting session closed"
+t=2026-01-11T09:21:23+0100 lvl=info msg="no more state changes" obj=tunnels.session
