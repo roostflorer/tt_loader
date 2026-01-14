@@ -602,14 +602,13 @@ export async function startBot() {
 
         const caption = lang === "ru" ? "🔊 Аудио из видео" : lang === "pl" ? "🔊 Dźwięk z filmu" : "🔊 Audio from video";
         const chatId = ctx.chat?.id || ctx.callbackQuery?.message?.chat?.id || ctx.callbackQuery?.from?.id;
-          // read the file into a Buffer and send as multipart to avoid
-          // any ambiguity where Telegram might treat the input as a URL
-          const audioBuffer = await fs.promises.readFile(audioPath);
-          try {
-            await ctx.api.sendAudio(chatId as number, { source: audioBuffer, filename: `${id}.mp3` }, { caption });
-          } catch (sendErr) {
-            throw sendErr;
-          }
+        
+        if (!chatId) throw new Error("Could not find chat ID");
+
+        // read the file into a Buffer and send as multipart to avoid
+        // any ambiguity where Telegram might treat the input as a URL
+        const audioBuffer = await fs.promises.readFile(audioPath);
+        await ctx.api.sendAudio(chatId, { source: audioBuffer, filename: `${id}.mp3` }, { caption });
       } catch (err) {
         console.error("Audio extraction error:", err);
         await ctx.reply(lang === "ru" ? "❌ Ошибка при создании аудио. Попробуйте позже." : lang === "pl" ? "❌ Błąd podczas tworzenia dźwięku. Spróbuj później." : "❌ Failed to create audio. Try again later.");
