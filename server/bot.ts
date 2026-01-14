@@ -143,18 +143,27 @@ export async function startBot() {
 
   // Middleware: Attach DB User
   bot.use(async (ctx, next) => {
-    if (ctx.from?.id) {
+      if (ctx.from?.id) {
       const telegramId = ctx.from.id.toString();
+      const username = ctx.from.username || null;
+      const firstName = ctx.from.first_name || null;
+      
       let user = await storage.getUserByTelegramId(telegramId);
       if (!user) {
         user = await storage.createUser({
           telegramId,
-          username: ctx.from.username || null,
-          firstName: ctx.from.first_name || null,
+          username,
+          firstName,
           isPro: false,
           trialStart: new Date(),
           language: "ru"
         } as any);
+      } else if (user.username !== username || user.firstName !== firstName) {
+        // Update user info if it changed
+        user = await storage.updateUser(user.id, {
+          username,
+          firstName
+        });
       }
       ctx.dbUser = user;
     }
