@@ -753,16 +753,10 @@ export async function startBot() {
         await ctx.replyWithVideo(videoUrl, {
           caption: caption.substring(0, 1024), // Telegram caption limit
           parse_mode: "Markdown",
-          reply_markup: new InlineKeyboard()
-            .text(
-              lang === "ru" ? "🎵 Скачать звук" : lang === "pl" ? "🎵 Pobierz dźwięk" : "🎵 Download Audio",
-              `dl_audio_${audioId}`
-            )
-            .row()
-            .text(
-              lang === "ru" ? "🎼 Установить звук" : lang === "pl" ? "🎼 Ustaw dźwięk" : "🎼 Set Sound",
-              `dl_audio_${audioId}`
-            )
+          reply_markup: new InlineKeyboard().text(
+            lang === "ru" ? "🎵 Извлечь музыку" : lang === "pl" ? "🎵 Pobierz dźwięk" : "🎵 Extract Music",
+            `dl_audio_${audioId}`
+          )
         });
         
         await storage.createDownload({
