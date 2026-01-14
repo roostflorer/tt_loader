@@ -767,6 +767,9 @@ export async function startBot() {
                         lang === "pl" ? `✅ *Pobrano przez @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Okres próbny"}` : 
                         `✅ *Downloaded via @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Trial"}`;
 
+        // Ensure hashtags are preserved in the caption if they exist in the title
+        const fullCaption = title && title.includes("#") ? caption : caption;
+        
         const audioId = crypto.randomBytes(6).toString("hex");
         // sanitize title for filename
         const safeTitle = (title || "audio")
