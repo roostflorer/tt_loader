@@ -582,6 +582,7 @@ export async function startBot() {
   bot.on("callback_query:data", async (ctx, next) => {
     const data = ctx.callbackQuery.data;
     if (data && data.startsWith("dl_audio_")) {
+      const id = data.replace("dl_audio_", "");
       const lang = ctx.session.language || "ru";
       await ctx.answerCallbackQuery(lang === "ru" ? "⏳ Подготовка аудио..." : lang === "pl" ? "⏳ Przygotowywanie dźwięku..." : "⏳ Preparing audio...");
 
