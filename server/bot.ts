@@ -763,16 +763,16 @@ export async function startBot() {
           { parse_mode: "Markdown" }
         );
         
-        const caption = lang === "ru" ? `✅ *Скачано через @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Статус:* ${isPro ? "PRO" : "Trial"}` : 
-                        lang === "pl" ? `✅ *Pobrano przez @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Okres próbny"}` : 
-                        `✅ *Downloaded via @${bot.botInfo.username}*\n${title ? `📝 ${title}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Trial"}`;
+        const hashtags = title?.match(/#\w+/g)?.join(" ") || "";
+        const cleanTitle = title?.replace(/#\w+/g, "").trim() || "";
 
-        // Ensure hashtags are preserved in the caption if they exist in the title
-        const fullCaption = title && title.includes("#") ? caption : caption;
-        
+        const caption = lang === "ru" ? `✅ *Скачано через @${bot.botInfo.username}*\n${cleanTitle ? `📝 ${cleanTitle}\n` : ""}${hashtags ? `${hashtags}\n` : ""}💎 *Статус:* ${isPro ? "PRO" : "Trial"}` : 
+                        lang === "pl" ? `✅ *Pobrano przez @${bot.botInfo.username}*\n${cleanTitle ? `📝 ${cleanTitle}\n` : ""}${hashtags ? `${hashtags}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Okres próbny"}` : 
+                        `✅ *Downloaded via @${bot.botInfo.username}*\n${cleanTitle ? `📝 ${cleanTitle}\n` : ""}${hashtags ? `${hashtags}\n` : ""}💎 *Status:* ${isPro ? "PRO" : "Trial"}`;
+
         const audioId = crypto.randomBytes(6).toString("hex");
         // sanitize title for filename
-        const safeTitle = (title || "audio")
+        const safeTitle = (cleanTitle || "audio")
           .replace(/[^\w\sа-яА-Я]/gi, "")
           .substring(0, 50)
           .trim() || "audio";
